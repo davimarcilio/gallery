@@ -5,13 +5,13 @@ import { Modal } from "./components/Modal";
 
 export function List() {
   return (
-    <section className="flex flex-col justify-center items-center  relative w-full">
+    <section className="flex flex-col justify-center max-sm:justify-start items-center max-sm:overflow-scroll relative w-full max-sm:h-screen max-sm:px-5">
       <Modal type="Form" title="Upload">
         <Button className="bg-blue self-end text-white mr-20">
           Upload de Imagem
         </Button>
       </Modal>
-      <table className="max-w-screen-md relative mt-5">
+      <table className="max-w-screen-md  max-sm:mt-20 mt-5 max-sm:absolute max-sm:left-2 max-sm:mr-2">
         <thead>
           <tr>
             <th className="bg-gray text-black border border-darkGray text-lg px-5 py-2 justify-center items-center">

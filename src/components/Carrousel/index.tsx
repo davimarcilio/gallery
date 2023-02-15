@@ -71,12 +71,12 @@ export function Carrousel() {
   }, []);
   return (
     <section className="flex flex-col justify-center mb-10 items-center  relative w-full">
-      <div className="max-w-screen-md relative">
+      <div className="max-w-screen-md relative max-sm:px-2">
         <div ref={sliderRef} className={"keen-slider"}>
           {images.map((image) => (
             <Image
               key={image.id}
-              className="keen-slider__slide w-full cursor-pointer hover:opacity-75 transition-opacity rounded"
+              className="keen-slider__slide max-sm:object-fill max-sm:w-10 w-full cursor-pointer hover:opacity-75 transition-opacity rounded"
               src={image.url}
               alt={image.name}
               width={1000}
@@ -84,11 +84,14 @@ export function Carrousel() {
             />
           ))}
         </div>
-        <div ref={thumbnailRef} className="keen-slider mt-5 thumbnail">
+        <div
+          ref={thumbnailRef}
+          className="keen-slider mt-5 thumbnail max-sm:hidden"
+        >
           {images.map((image) => (
             <Image
               key={image.id}
-              className="keen-slider__slide cursor-pointer hover:opacity-75 transition-opacity rounded"
+              className="keen-slider__slide max-sm:hidden cursor-pointer hover:opacity-75 transition-opacity rounded"
               src={image.url}
               alt={image.name}
               width={250}
@@ -99,6 +102,7 @@ export function Carrousel() {
         {loaded && instanceRef.current && (
           <>
             <Arrow
+              className="max-sm:hidden"
               disabled={currentSlide === 0}
               onClick={(e: any) =>
                 e.stopPropagation() || instanceRef.current?.prev()
@@ -106,6 +110,7 @@ export function Carrousel() {
               isLeft={true}
             />
             <Arrow
+              className="max-sm:hidden"
               disabled={currentSlide === 4}
               onClick={(e: any) =>
                 e.stopPropagation() || instanceRef.current?.next()

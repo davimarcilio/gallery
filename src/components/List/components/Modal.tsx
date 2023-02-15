@@ -57,7 +57,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
         <Dialog.Overlay className="bg-slate-900 opacity-60 w-screen h-screen absolute top-0" />
         <Dialog.Content
           asChild
-          className="bg-background p-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
+          className="bg-background p-10 absolute max-sm:w-screen max-sm:h-screen max-sm:fixed max-sm:top-0 max-sm:left-0 max-sm:-translate-x-0 max-sm:-translate-y-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
         >
           {type === "Form" ? (
             <form onSubmit={handleSubmit(submitForm)}>
@@ -72,7 +72,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
                   className="w-full h-full opacity-0 absolute cursor-pointer z-10"
                   type="file"
                 />
-                <div className="w-96 h-44 border-4 flex rounded-xl justify-center items-center border-dashed border-blue">
+                <div className="w-96 h-44 max-sm:h-full max-sm:w-full border-4 flex rounded-xl justify-center items-center border-dashed border-blue">
                   <UploadSimple className="text-blue" size={50} />
                 </div>
               </div>
@@ -92,7 +92,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
               </Dialog.Close>
             </form>
           ) : (
-            <div className="mt-10">
+            <div className="">
               <Dialog.Title className="text-darkGray text-3xl font-bold">
                 {title}
               </Dialog.Title>
@@ -101,7 +101,9 @@ export function Modal({ children, title, type, image }: ModalProps) {
                 height={1000}
                 src={image!.url}
                 alt={image!.title}
-                className={"max-w-screen-md max-h-screen-md w-full h-full"}
+                className={
+                  "max-w-screen-md max-h-screen-md w-full max-sm:object-cover h-full"
+                }
               />
               <Dialog.Close className="bg-gray" asChild>
                 <Button>Fechar</Button>

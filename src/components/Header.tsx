@@ -11,19 +11,19 @@ interface HeaderProps {
 
 export function Header({ defaultChecked, title, onChangePage }: HeaderProps) {
   return (
-    <header className="w-full flex flex-col relative leading-none px-20 py-4">
+    <header className="w-full flex flex-col relative leading-none px-20 max-sm:px-2 py-4">
       <section className="flex w-full justify-between items-center">
         <h1 className="text-gray text-3xl font-bold">GALLERY</h1>
         <Button className="bg-lightGray text-darkGray">Encerrar sessão</Button>
       </section>
-      <section className="flex items-center justify-center px-20 mt-10">
+      <section className="flex max-sm:flex-col max-sm:gap-2 items-center justify-center px-20 mt-10">
         <h1 className="text-5xl font-bold flex justify-center text-darkGray flex-1 uppercase">
           {title}
         </h1>
         <ToggleGroup.Root
           value={defaultChecked}
           onValueChange={(value: CurrencyPage) => onChangePage(value)}
-          className="w-auto absolute right-28"
+          className="w-auto absolute max-sm:static right-28"
           defaultValue={defaultChecked}
           type="single"
         >

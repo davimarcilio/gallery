@@ -15,7 +15,7 @@ export default function Logged() {
     return setCheckedPage(value);
   }
   return (
-    <main>
+    <main className="max-sm overflow-hidden">
       <Header
         onChangePage={changeCheckedPage}
         title={checkedPage}
