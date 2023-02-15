@@ -13,7 +13,7 @@ export function Arrow({ isLeft, ...props }: ArrowProps) {
         <CaretLeft
           size={50}
           className={`cursor-pointer absolute top-1/2 -translate-y-1/2 -left-10 transition-opacity ${
-            props.disabled ? "text-gray" : "hover:opacity-70"
+            props.disabled ? "text-gray cursor-not-allowed" : "hover:opacity-70"
           }`}
           {...props}
         />
@@ -21,7 +21,7 @@ export function Arrow({ isLeft, ...props }: ArrowProps) {
         <CaretRight
           size={50}
           className={`cursor-pointer absolute top-1/2 -translate-y-1/2 -right-10 transition-opacity ${
-            props.disabled ? "text-gray" : "hover:opacity-70"
+            props.disabled ? "text-gray cursor-not-allowed" : "hover:opacity-70"
           }`}
           {...props}
         />

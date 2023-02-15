@@ -1,5 +1,6 @@
 import { Carrousel } from "@/components/Carrousel";
 import { Header } from "@/components/Header";
+import { List } from "@/components/List";
 import { useState } from "react";
 
 export type CurrencyPage = "carrousel" | "list";
@@ -16,7 +17,7 @@ export default function Logged() {
         title={checkedPage}
         defaultChecked={checkedPage}
       />
-      <Carrousel />
+      {checkedPage === "carrousel" ? <Carrousel /> : <List />}
     </main>
   );
 }

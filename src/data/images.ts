@@ -19,7 +19,7 @@ export const images = [
     id: 3,
     name: "Montanha",
     type: "jpg",
-    url: "/moutain/MoutainTest3.jpg",
+    url: "/moutain/MoutainTest5.jpg",
     length: "119kb",
     createdAt: new Date(),
   },

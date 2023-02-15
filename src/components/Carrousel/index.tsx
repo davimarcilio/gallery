@@ -47,12 +47,15 @@ export function Carrousel() {
     initial: 0,
   });
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const [loaded, setLoaded] = useState(false);
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
     {
       initial: 0,
       slideChanged(slider) {
         setCurrentSlide(slider.track.details.rel);
+      },
+      created() {
+        setLoaded(true);
       },
       slides: {
         perView: 4,
@@ -67,6 +70,7 @@ export function Carrousel() {
         <div ref={sliderRef} className={"keen-slider"}>
           {images.map((image) => (
             <Image
+              key={image.id}
               className="keen-slider__slide w-full cursor-pointer hover:opacity-75 transition-opacity rounded"
               src={image.url}
               alt={image.name}
@@ -78,6 +82,7 @@ export function Carrousel() {
         <div ref={thumbnailRef} className="keen-slider mt-5 thumbnail">
           {images.map((image) => (
             <Image
+              key={image.id}
               className="keen-slider__slide cursor-pointer hover:opacity-75 transition-opacity rounded"
               src={image.url}
               alt={image.name}
@@ -86,7 +91,7 @@ export function Carrousel() {
             />
           ))}
         </div>
-        {!!instanceRef.current && (
+        {loaded && instanceRef.current && (
           <>
             <Arrow
               disabled={currentSlide === 0}
