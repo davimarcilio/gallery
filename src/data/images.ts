@@ -1,0 +1,42 @@
+export const images = [
+  {
+    id: 1,
+    name: "Montanha",
+    type: "jpg",
+    url: "/moutain/MoutainTest1.jpg",
+    length: "119kb",
+    createdAt: new Date(),
+  },
+  {
+    id: 2,
+    name: "Montanha",
+    type: "jpg",
+    url: "/moutain/MoutainTest2.jpg",
+    length: "119kb",
+    createdAt: new Date(),
+  },
+  {
+    id: 3,
+    name: "Montanha",
+    type: "jpg",
+    url: "/moutain/MoutainTest3.jpg",
+    length: "119kb",
+    createdAt: new Date(),
+  },
+  {
+    id: 4,
+    name: "Montanha",
+    type: "jpg",
+    url: "/moutain/MoutainTest4.jpg",
+    length: "119kb",
+    createdAt: new Date(),
+  },
+  {
+    id: 5,
+    name: "Montanha",
+    type: "webp",
+    url: "/moutain/MoutainTeste3.webp",
+    length: "119kb",
+    createdAt: new Date(),
+  },
+];
