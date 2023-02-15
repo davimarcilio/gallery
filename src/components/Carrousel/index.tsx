@@ -67,7 +67,7 @@ export function Carrousel() {
   useEffect(() => {
     setTimeout(() => {
       instanceRef.current?.update();
-    }, 100);
+    }, 200);
   }, []);
   return (
     <section className="flex flex-col justify-center mb-10 items-center  relative w-full">
