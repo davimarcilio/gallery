@@ -77,9 +77,8 @@ export default function Home() {
             >
               Acessar a plataforma
             </Button>
-            <p className="text-danger font-bold">
-              {errors.user?.message}, {errors.password?.message}
-            </p>
+            <p className="text-danger font-bold">{errors.user?.message}</p>
+            <p className="text-danger font-bold">{errors.password?.message}</p>
           </div>
         </form>
       </section>
