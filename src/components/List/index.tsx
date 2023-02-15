@@ -1,13 +1,16 @@
 import { images } from "@/data/images";
 import { Eye, TrashSimple } from "phosphor-react";
 import { Button } from "../Button";
+import { Modal } from "./components/Modal";
 
 export function List() {
   return (
     <section className="flex flex-col justify-center items-center  relative w-full">
-      <Button className="bg-blue self-end text-white mr-20">
-        Upload de Imagem
-      </Button>
+      <Modal title="Upload">
+        <Button className="bg-blue self-end text-white mr-20">
+          Upload de Imagem
+        </Button>
+      </Modal>
       <table className="max-w-screen-md relative mt-5">
         <thead>
           <tr>

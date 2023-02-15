@@ -65,7 +65,7 @@ export function Carrousel() {
     [ThumbnailPlugin(instanceRef)]
   );
   return (
-    <section className="flex flex-col justify-center items-center  relative w-full">
+    <section className="flex flex-col justify-center mb-10 items-center  relative w-full">
       <div className="max-w-screen-md relative">
         <div ref={sliderRef} className={"keen-slider"}>
           {images.map((image) => (
