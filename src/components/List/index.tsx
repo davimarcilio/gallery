@@ -6,7 +6,7 @@ import { Modal } from "./components/Modal";
 export function List() {
   return (
     <section className="flex flex-col justify-center items-center  relative w-full">
-      <Modal title="Upload">
+      <Modal type="Form" title="Upload">
         <Button className="bg-blue self-end text-white mr-20">
           Upload de Imagem
         </Button>
@@ -56,9 +56,15 @@ export function List() {
                 <Button className="bg-danger px-2 py-2">
                   <TrashSimple className="text-white" />
                 </Button>
-                <Button className="bg-blue px-2 py-2">
-                  <Eye className="text-white" />
-                </Button>
+                <Modal
+                  title="Visualização"
+                  type="Visualization"
+                  image={{ title: image.name, url: image.url }}
+                >
+                  <Button className="bg-blue px-2 py-2">
+                    <Eye className="text-white" />
+                  </Button>
+                </Modal>
               </td>
             </tr>
           ))}

@@ -8,7 +8,11 @@ export type CurrencyPage = "carrousel" | "list";
 export default function Logged() {
   const [checkedPage, setCheckedPage] = useState<CurrencyPage>("carrousel");
   function changeCheckedPage(value: CurrencyPage) {
-    setCheckedPage(value);
+    if (!!!value) {
+      return setCheckedPage(checkedPage);
+    }
+
+    return setCheckedPage(value);
   }
   return (
     <main>

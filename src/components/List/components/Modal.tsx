@@ -1,13 +1,19 @@
 import { Alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
 import * as Dialog from "@radix-ui/react-dialog";
+import Image from "next/image";
 import { UploadSimple, X } from "phosphor-react";
-import { InputHTMLAttributes, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ModalProps {
   children: ReactNode;
   title: string;
+  type: "Form" | "Visualization";
+  image?: {
+    url: string;
+    title: string;
+  };
 }
 interface Inputs {
   file: FileList;
@@ -18,7 +24,7 @@ interface ErrorProps {
   type: "error" | "success";
 }
 
-export function Modal({ children, title }: ModalProps) {
+export function Modal({ children, title, type, image }: ModalProps) {
   const {
     register,
     handleSubmit,
@@ -51,39 +57,57 @@ export function Modal({ children, title }: ModalProps) {
         <Dialog.Overlay className="bg-slate-900 opacity-60 w-screen h-screen absolute top-0" />
         <Dialog.Content
           asChild
-          className="bg-background p-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
+          className="bg-background p-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3 rounded-lg flex flex-col justify-center gap-10"
         >
-          <form onSubmit={handleSubmit(submitForm)}>
-            <Dialog.Title className="text-darkGray text-3xl font-bold">
-              {title}
-            </Dialog.Title>
-            <div className="w-full h-full relative hover:opacity-70 transition-opacity">
-              <input
-                {...register("file", {
-                  required: "Selecione um arquivo",
-                })}
-                className="w-full h-full opacity-0 absolute cursor-pointer z-10"
-                type="file"
-              />
-              <div className="w-96 h-44 border-4 flex rounded-xl justify-center items-center border-dashed border-blue">
-                <UploadSimple className="text-blue" size={50} />
+          {type === "Form" ? (
+            <form onSubmit={handleSubmit(submitForm)}>
+              <Dialog.Title className="text-darkGray text-3xl font-bold">
+                {title}
+              </Dialog.Title>
+              <div className="w-full h-full relative hover:opacity-70 transition-opacity">
+                <input
+                  {...register("file", {
+                    required: "Selecione um arquivo",
+                  })}
+                  className="w-full h-full opacity-0 absolute cursor-pointer z-10"
+                  type="file"
+                />
+                <div className="w-96 h-44 border-4 flex rounded-xl justify-center items-center border-dashed border-blue">
+                  <UploadSimple className="text-blue" size={50} />
+                </div>
               </div>
-            </div>
-            <Button
-              disabled={isSubmitting}
-              className="bg-blue text-white flex-1"
-            >
-              Cadastrar
-            </Button>
-            <p className="text-danger">{errors.file?.message}</p>
+              <Button
+                disabled={isSubmitting}
+                className="bg-blue text-white flex-1"
+              >
+                Cadastrar
+              </Button>
+              <p className="text-danger">{errors.file?.message}</p>
 
-            <Dialog.Close
-              className="absolute top-5 right-5 cursor-pointer text-darkGray hover:opacity-60 transition-opacity"
-              asChild
-            >
-              <X size={30} />
-            </Dialog.Close>
-          </form>
+              <Dialog.Close
+                className="absolute top-5 right-5 cursor-pointer text-darkGray hover:opacity-60 transition-opacity"
+                asChild
+              >
+                <X size={30} />
+              </Dialog.Close>
+            </form>
+          ) : (
+            <div>
+              <Dialog.Title className="text-darkGray text-3xl font-bold">
+                {title}
+              </Dialog.Title>
+              <Image
+                width={1000}
+                height={1000}
+                src={image!.url}
+                alt={image!.title}
+                className={"max-w-screen-md max-h-screen-md w-full h-full"}
+              />
+              <Dialog.Close className="bg-gray" asChild>
+                <Button>Fechar</Button>
+              </Dialog.Close>
+            </div>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
       {error.state && (
