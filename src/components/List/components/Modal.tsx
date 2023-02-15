@@ -57,7 +57,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
         <Dialog.Overlay className="bg-slate-900 opacity-60 w-screen h-screen absolute top-0" />
         <Dialog.Content
           asChild
-          className="bg-background p-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/3 rounded-lg flex flex-col justify-center gap-10"
+          className="bg-background p-10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
         >
           {type === "Form" ? (
             <form onSubmit={handleSubmit(submitForm)}>
@@ -92,7 +92,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
               </Dialog.Close>
             </form>
           ) : (
-            <div>
+            <div className="mt-10">
               <Dialog.Title className="text-darkGray text-3xl font-bold">
                 {title}
               </Dialog.Title>

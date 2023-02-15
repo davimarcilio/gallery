@@ -4,7 +4,7 @@ import {
   KeenSliderInstance,
 } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { MutableRefObject, useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import { images } from "@/data/images";
 import Image from "next/image";
 import { Arrow } from "./components/Arrow";
@@ -45,18 +45,18 @@ export function Carrousel() {
   }
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoaded(true);
+    },
   });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
     {
       initial: 0,
-      slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel);
-      },
-      created() {
-        setLoaded(true);
-      },
       slides: {
         perView: 4,
         spacing: 10,
@@ -64,6 +64,11 @@ export function Carrousel() {
     },
     [ThumbnailPlugin(instanceRef)]
   );
+  useEffect(() => {
+    setTimeout(() => {
+      instanceRef.current?.update();
+    }, 100);
+  }, []);
   return (
     <section className="flex flex-col justify-center mb-10 items-center  relative w-full">
       <div className="max-w-screen-md relative">
