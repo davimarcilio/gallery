@@ -1,8 +1,9 @@
+import { Alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
+import { UserContext } from "@/context/UserContext";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { Eye, EyeSlash } from "phosphor-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Inputs {
@@ -18,9 +19,11 @@ export default function Home() {
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
-  const router = useRouter();
+  const { loginUser, user } = useContext(UserContext);
 
-  const submitForm: SubmitHandler<Inputs> = (data) => {};
+  const submitForm: SubmitHandler<Inputs> = ({ password, user }) => {
+    return loginUser(user, password);
+  };
 
   return (
     <main className="flex justify-center max-sm:h-screen items-center max-sm:px-5 font-roboto">
@@ -61,6 +64,7 @@ export default function Home() {
               <button
                 onClick={() => setVisiblePassword((state) => !state)}
                 className="absolute right-0 top-0 h-full p-1"
+                type="button"
               >
                 {isVisiblePassword ? (
                   <EyeSlash className="text-blue" size={24} />
@@ -69,11 +73,17 @@ export default function Home() {
                 )}
               </button>
             </div>
-
+            {user.id === 0 && (
+              <Alert
+                message="Usuário/Senha incorretos"
+                title="Erro"
+                type="error"
+                open={true}
+              />
+            )}
             <Button
               disabled={isSubmitting}
-              onClick={() => router.push("/logged")}
-              className="bg-blue text-white"
+              className="bg-blue disabled:hover:opacity-100 text-white"
             >
               Acessar a plataforma
             </Button>

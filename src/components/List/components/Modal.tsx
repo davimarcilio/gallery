@@ -1,9 +1,11 @@
 import { Alert } from "@/components/Alert";
 import { Button } from "@/components/Button";
+import { UserContext } from "@/context/UserContext";
+import { uploadImage } from "@/lib/firebase/bucket";
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
 import { UploadSimple, X } from "phosphor-react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface ModalProps {
@@ -21,6 +23,8 @@ interface Inputs {
 
 interface ErrorProps {
   state: boolean;
+  message: string;
+  title: string;
   type: "error" | "success";
 }
 
@@ -30,22 +34,45 @@ export function Modal({ children, title, type, image }: ModalProps) {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm<Inputs>();
+  const { user, getGalery } = useContext(UserContext);
   const [error, setError] = useState<ErrorProps>({
     state: false,
     type: "success",
+    message: "",
+    title: "",
   });
-  const submitForm: SubmitHandler<Inputs> = (data) => {
+  const submitForm: SubmitHandler<Inputs> = async (data) => {
     if (data.file[0].type.includes("image")) {
       ///Requisição backend
-    } else {
+      const response = await uploadImage({ ...user }, data.file[0]);
+      getGalery(user.id);
       setError({
         state: true,
-        type: "error",
+        type: "success",
+        message: "Imagem enviada com sucesso!",
+        title: "Sucesso",
       });
       setTimeout(() => {
         setError({
           state: false,
           type: "success",
+          message: "",
+          title: "",
+        });
+      }, 5000);
+    } else {
+      setError({
+        state: true,
+        type: "error",
+        message: "O arquivo enviado não é uma imagem",
+        title: "Formato inválido",
+      });
+      setTimeout(() => {
+        setError({
+          state: false,
+          type: "success",
+          message: "",
+          title: "",
         });
       }, 5000);
     }
@@ -57,7 +84,7 @@ export function Modal({ children, title, type, image }: ModalProps) {
         <Dialog.Overlay className="bg-slate-900 opacity-60 w-screen h-screen absolute top-0" />
         <Dialog.Content
           asChild
-          className="bg-background p-10 absolute max-sm:w-screen max-sm:h-screen max-sm:fixed max-sm:top-0 max-sm:left-0 max-sm:-translate-x-0 max-sm:-translate-y-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
+          className="bg-background p-10 fixed max-sm:w-screen max-sm:h-screen max-sm:fixed max-sm:top-0 max-sm:left-0 max-sm:-translate-x-0 max-sm:-translate-y-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg flex flex-col justify-center gap-10"
         >
           {type === "Form" ? (
             <form onSubmit={handleSubmit(submitForm)}>
@@ -114,9 +141,9 @@ export function Modal({ children, title, type, image }: ModalProps) {
       </Dialog.Portal>
       {error.state && (
         <Alert
-          message="O arquivo enviado não é uma imagem"
+          message={error.message}
           type={error.type}
-          title="Formato inválido"
+          title={error.title}
           open={error.state}
         />
       )}

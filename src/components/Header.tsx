@@ -2,6 +2,8 @@ import { Button } from "./Button";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Image, List } from "phosphor-react";
 import { CurrencyPage } from "@/pages/logged";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContext";
 
 interface HeaderProps {
   title: string;
@@ -10,11 +12,18 @@ interface HeaderProps {
 }
 
 export function Header({ defaultChecked, title, onChangePage }: HeaderProps) {
+  const { closeSession } = useContext(UserContext);
+
   return (
     <header className="w-full flex flex-col relative leading-none px-20 max-sm:px-2 py-4">
       <section className="flex w-full justify-between items-center">
         <h1 className="text-gray text-3xl font-bold">GALLERY</h1>
-        <Button className="bg-lightGray text-darkGray">Encerrar sessão</Button>
+        <Button
+          onClick={() => closeSession()}
+          className="bg-lightGray text-darkGray"
+        >
+          Encerrar sessão
+        </Button>
       </section>
       <section className="flex max-sm:flex-col max-sm:gap-2 items-center justify-center px-20 mt-10">
         <h1 className="text-5xl font-bold flex justify-center text-darkGray flex-1 uppercase">

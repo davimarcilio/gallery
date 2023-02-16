@@ -16,6 +16,8 @@
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "axios": "^1.3.3",
+    "firebase": "^9.17.1",
     "keen-slider": "^6.8.5",
     "next": "13.1.6",
     "phosphor-react": "^1.4.1",

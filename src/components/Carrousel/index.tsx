@@ -4,11 +4,31 @@ import {
   KeenSliderInstance,
 } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { MutableRefObject, useEffect, useState } from "react";
-import { images } from "@/data/images";
+import { MutableRefObject, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { Arrow } from "./components/Arrow";
+import { UserContext } from "@/context/UserContext";
+import { Modal } from "../List/components/Modal";
+import { Button } from "../Button";
 export function Carrousel() {
+  const { galery } = useContext(UserContext);
+
+  if (galery.length === 0) {
+    return (
+      <section className="flex text-3xl font-bold mt-10 flex-col justify-center max-sm:justify-start items-center max-sm:overflow-scroll relative w-full max-sm:h-screen max-sm:px-5">
+        <h1>
+          Opa, Você não possui nenhuma imagem no momento, experimente adicionar
+          uma!
+        </h1>
+        <Modal type="Form" title="Upload">
+          <Button className="bg-blue mt-5 text-white mr-20">
+            Upload de Imagem
+          </Button>
+        </Modal>
+      </section>
+    );
+  }
+
   function ThumbnailPlugin(
     mainRef: MutableRefObject<KeenSliderInstance | null>
   ): KeenSliderPlugin {
@@ -73,11 +93,11 @@ export function Carrousel() {
     <section className="flex flex-col justify-center mb-10 items-center  relative w-full">
       <div className="max-w-screen-md relative max-sm:px-2">
         <div ref={sliderRef} className={"keen-slider"}>
-          {images.map((image) => (
+          {galery.map((image) => (
             <Image
               key={image.id}
               className="keen-slider__slide max-sm:object-fill max-sm:w-10 w-full cursor-pointer hover:opacity-75 transition-opacity rounded"
-              src={image.url}
+              src={image.src}
               alt={image.name}
               width={1000}
               height={500}
@@ -88,11 +108,11 @@ export function Carrousel() {
           ref={thumbnailRef}
           className="keen-slider mt-5 thumbnail max-sm:hidden"
         >
-          {images.map((image) => (
+          {galery.map((image) => (
             <Image
               key={image.id}
               className="keen-slider__slide max-sm:hidden cursor-pointer hover:opacity-75 transition-opacity rounded"
-              src={image.url}
+              src={image.src}
               alt={image.name}
               width={250}
               height={250}
