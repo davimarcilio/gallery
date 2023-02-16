@@ -63,7 +63,9 @@ export function UserProvider({ children }: UserProviderProps) {
         };
       });
       setGalery(allResponses);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
   async function deleteImage(id: number) {
     api.delete(`/image/${id}`, {
@@ -85,6 +87,7 @@ export function UserProvider({ children }: UserProviderProps) {
         name: response.data.name,
         login: response.data.login,
       });
+
       localStorage.setItem(
         "authorizationLogin@galery@1.0.0",
         JSON.stringify({
@@ -94,6 +97,7 @@ export function UserProvider({ children }: UserProviderProps) {
           login: response.data.login,
         })
       );
+
       router.push("/logged");
     } catch (error) {
       setUser({
@@ -107,13 +111,17 @@ export function UserProvider({ children }: UserProviderProps) {
   }
 
   useEffect(() => {
-    if (!!localStorage.getItem("authorizationLogin@galery@1.0.0")) {
-      setUser(
-        JSON.parse(localStorage.getItem("authorizationLogin@galery@1.0.0")!)
-      );
-      getGalery(user.id);
-    }
+    getGalery(user.id);
   }, [user]);
+
+  useEffect(() => {
+    if (!!localStorage.getItem("authorizationLogin@galery@1.0.0")) {
+      const localUser: User = JSON.parse(
+        localStorage.getItem("authorizationLogin@galery@1.0.0")!
+      );
+      setUser(localUser);
+    }
+  }, []);
 
   return (
     <UserContext.Provider
